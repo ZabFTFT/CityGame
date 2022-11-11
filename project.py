@@ -7,7 +7,8 @@ import time
 
 URL = "https://gist.githubusercontent.com/ZabFTFT/487e75ea0b3ac161f9f248e38d2801b7/raw/e3116660dfde774cd1e583187601843e0eb2cb48/WorldCities"
 
-# Class with reactions
+
+# Section of classes
 class Reactions:
     """
     This class will be used for text reactions
@@ -22,15 +23,16 @@ class Reactions:
 
     @classmethod
     def algo_answer_reaction(cls):
-         return random.choice(cls.algo_answer_reactions)
+        return random.choice(cls.algo_answer_reactions)
 
     @classmethod
     def algo_skip_reaction(cls):
-         return random.choice(cls.algo_skip_reactions)
-    
+        return random.choice(cls.algo_skip_reactions)
+
     @classmethod
     def algo_shortcuts(cls):
         return "Type this commands: quit - for finish programm, skip - for skip current letter, short - for display shortcuts\n"
+
 
 class Score:
     """Class for tracking score value"""
@@ -43,33 +45,20 @@ class Score:
 
     @classmethod
     def score_display(cls):
-        if cls.score >=5:
+        if cls.score >= 5:
             return f"You did fantastic job! You score is {cls.score}"
         elif cls.score < 5:
             return f"\nNext time you will do a better job! You score is {cls.score}"
 
-
-
+# Main program
 def main():
 
     # Adding data to list
     list_of_cities = create_list_of_cities()
-    
-
+    # Starting letter
     last_letter = letter_generator()
-    print("Welcome to CityGame!")
-    time.sleep(0)
-    print("\nI'd like to introduce mechanic of the game and some shortcuts")
-    time.sleep(0)
-    print("\nThere is only one rule: the first letter of your answer must start with last letter of previous city")
-    time.sleep(0)
-    print("\nFor example: if i typed Kyiv, you need to enter the name of city with first letter V, like Vancouver")
-    time.sleep(0)
-    print("\nWe have some shortcuts as well to increase fun and control of process")
-    time.sleep(0)
-    print(f"\n{Reactions.algo_shortcuts()}")
-    time.sleep(0)
-    print(f"\nLets start our game with letter {last_letter}\n")
+    # User greetings text
+    user_greetings(last_letter)
 
     # Main game
     while True:
@@ -79,7 +68,7 @@ def main():
 
         algo_answer_var, last_letter = algo_answer(last_letter, list_of_cities)
         list_of_cities.remove(algo_answer_var)
-    
+
 
 def letter_generator():
     alpha = "QWERTYUIOPLKJHGFDSAZXCVBNM"
@@ -141,6 +130,21 @@ def algo_answer(last_letter: str, list_of_cities: list):
         if list_of_cities[number][0] == last_letter:
             print(f"{Reactions.algo_answer_reaction()}{list_of_cities[number]}\n")
             return list_of_cities[number], list_of_cities[number][-1].upper()
+
+def user_greetings(last_letter):
+    print("Welcome to CityGame!")
+    time.sleep(0)
+    print("\nI'd like to introduce mechanic of the game and some shortcuts")
+    time.sleep(0)
+    print("\nThere is only one rule: the first letter of your answer must start with last letter of previous city")
+    time.sleep(0)
+    print("\nFor example: if i typed Kyiv, you need to enter the name of city with first letter V, like Vancouver")
+    time.sleep(0)
+    print("\nWe have some shortcuts as well to increase fun and control of process")
+    time.sleep(0)
+    print(f"\n{Reactions.algo_shortcuts()}")
+    time.sleep(0)
+    print(f"\nLets start our game with letter {last_letter}\n")
 
 
 if __name__ == "__main__":
